@@ -3,15 +3,17 @@ day 3 real devices
 @ edge 
 
 EDGE61(config)#router eigrp 61
-EDGE61(config-router)#no auo-summary
-                           ^
-% Invalid input detected at '^' marker.
-
 EDGE61(config-router)#no auto-summary
 EDGE61(config-router)#network 10.61.61.0 0.0.0.255
 EDGE61(config-router)#router ospf 1
 EDGE61(config-router)#router-id 61.0.0.1 
 EDGE61(config-router)#network 200.0.0.0 0.0.255 area 0
+
+how to check if eigrp is working
+show ip eigrp nieghbor
+show ip eigrp topology
+show ip route eigrp
+
                                                ^
 
 @corebaba 
