@@ -1,20 +1,28 @@
 day 3 real devices
 
+@CUCM
+config t
+router eigrp 61
+no auto-summary
+network 10.61.100.0 0.0.0.255
+
 @ edge 
 
 router eigrp 61
 no auto-summary
 network 10.61.61.0 0.0.0.255
+
 router ospf 1
 router-id 61.0.0.1 
-network 200.0.0.0 0.0.255 area 0
+network 200.0.0.0 0.0.0.255 area 0
+network 61.0.0.1 0.0.0.0 area 0
 
-how to check if eigrp is working
+!!how to check if eigrp is working
 show ip eigrp nieghbor
 show ip eigrp topology
 show ip route eigrp
 
-route redistribution for eigrp(racists) to ospf(open/kind)
+!!route redistribution for eigrp(racists) to ospf(open/kind)
 get seed metric
 k1 bandwith
 k2 delay
