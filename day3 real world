@@ -2,12 +2,12 @@ day 3 real devices
 
 @ edge 
 
-EDGE61(config)#router eigrp 61
-EDGE61(config-router)#no auto-summary
-EDGE61(config-router)#network 10.61.61.0 0.0.0.255
-EDGE61(config-router)#router ospf 1
-EDGE61(config-router)#router-id 61.0.0.1 
-EDGE61(config-router)#network 200.0.0.0 0.0.255 area 0
+router eigrp 61
+no auto-summary
+network 10.61.61.0 0.0.0.255
+router ospf 1
+router-id 61.0.0.1 
+network 200.0.0.0 0.0.255 area 0
 
 how to check if eigrp is working
 show ip eigrp nieghbor
@@ -23,29 +23,25 @@ k4 load
 k5 mtu (bytes)
 
 config t
-router ospf
-EDGE61(config)#router ospf 1
-EDGE61(config-router)#redistribute eigrp 61 subnets
-EDGE61(config-router)#router eigrp 61 
-EDGE61(config-router)#redistribute ospf 1 metric 10000000 1 255 1 1500
-EDGE61(config-router)#end
+router ospf 1
+redistribute eigrp 61 subnets
+router eigrp 61 
+redistribute ospf 1 metric 10000000 1 255 1 1500
+end
                                                ^
 
 @corebaba 
 
-COREbaba61(config)#config ter
-COREbaba61(config)#router eigrp 61
-COREbaba61(config-router)#no auto-summary
-COREbaba61(config-router)#network 10.61.100.0  0.0.0.255
-COREbaba61(config-router)#network 10.61.50.0  0.0.0.255 
-COREbaba61(config-router)#network 10.61.10.0  0.0.0.255
-COREbaba61(config-router)#network 10.61.1.0  0.0.0.255 
-COREbaba61(config-router)#network 10.61.61.0  0.0.0.255
-COREbaba61(config-router)#
+config ter
+router eigrp 61
+no auto-summary
+network 10.61.100.0  0.0.0.255
+network 10.61.50.0  0.0.0.255 
+network 10.61.10.0  0.0.0.255
+network 10.61.1.0  0.0.0.255 
+network 10.61.61.0  0.0.0.255
 
 @cucm
-CUCM-61#config t
-Enter configuration commands, one per line.  End with CNTL/Z.
-CUCM-61(config)#router eigrp 61
-CUCM-61(config-router)#network 10.61.100.1 0.0.0.255
-CUCM-61(config-router)#
+config t
+router eigrp 61
+network 10.61.100.1 0.0.0.255
