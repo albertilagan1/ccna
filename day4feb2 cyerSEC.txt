@@ -23,6 +23,70 @@ services vs ports
 web server runs on port 80 if classmat port 80 open
 net  use  s: \\10.k.1.10\c$
 
+Task 1: protect most valuable asset
+ptoect people/it staff. Use cicso accese lists to block all porn sites from entering network
+step 1: give unlimited internet to edge
+
+@edge
+config t
+ip route 0.0.0.0 0.0.0.0 200.0.0.1
+ip name-server 8.8.8.8
+ip domain-lookup
+ALL THE PORN SITES ARE OWNED BY 5 COMPANIES:
+
+config t
+no ip access-list standard NOPORN1
+ip access-list standard NOPORN1
+DENY 66.254.0.0 0.0.255.255
+DENY 104.27.0.0 0.0.255.255
+DENY 15.197.0.0 0.0.255.255
+DENY 88.208.0.0 0.0.255.255
+DENY 66.254.0.0 0.0.255.255
+
+Permit any
+INT Gi 0/0/1
+ip access-group NOPORN1 in
+end
+
+!!block other table
+config t
+no ip access-list standard NOCOL1
+ip access-list standard NOCOL1
+DENY 10.41.0.0 0.0.255.255
+DENY 10.42.0.0 0.0.255.255
+DENY 10.32.0.0 0.0.255.255
+DENY 10.31.0.0 0.0.255.255
+DENY 10.21.0.0 0.0.255.255
+DENY 10.22.0.0 0.0.255.255
+DENY 10.11.0.0 0.0.255.255
+DENY 10.12.0.0 0.0.255.255
+
+Permit any
+INT Gi 0/0/1
+ip access-group NOCOL1 in
+end64
+
+config t
+no ip access-list standard THREESOME
+ip access-list standard THREESOME
+DENY 10.52.0.0 0.0.255.255
+DENY 10.42.0.0 0.0.255.255
+DENY 10.32.0.0 0.0.255.255
+DENY 10.31.0.0 0.0.255.255
+DENY 10.21.0.0 0.0.255.255
+DENY 10.22.0.0 0.0.255.255
+DENY 10.11.0.0 0.0.255.255
+DENY 10.12.0.0 0.0.255.255
+DENY 10.62.0.0 0.0.255.255
+
+INT Gi 0/0/1
+ip access-group THREESOME in
+end
+
+@REMOVE THREESOME
+INT Gi 0/0/1
+no ip access-group THREESOME in
+end
 TASK3: When you become a Security Analyst:
 Learn to Block the IPaddress from 3 "BAD" countries:
 NorthKorea, RUSSIA, China.= where all the Best hackers live.
@@ -120,11 +184,11 @@ intentionally hackable websites
 
 task6: How to Make CUCM intentionally hackable to Learn
 the Basics for Firewalls.
-before: nmap -v 10.m.100.8
+before: nmap -v 10.61.100.8
 @Cucm:
 config t
 int fa 0/0
- ip add 10.m.100.9 255.255.255.0 Secondary
+ ip add 10.61.100.9 255.255.255.0 Secondary
 service finger
 service tcp-small-servers
 service udp-small-servers
@@ -132,13 +196,15 @@ ip dns server
 ip http server
 ip http secure-server
 !Make Ping EASY
-ip host pc 10.m.1.10
-ip host cm 10.m.100.8
-ip host cm2 10.m.100.9
-ip host p1 10.m.100.101
-ip host p2 10.m.100.102
-ip host sw 10.m.1.4
-ip host ed 10.m.m.1
+ip host pc 10.61.1.10
+ip host cm 10.61.100.8
+ip host cm2 10.61.100.9
+ip host c6 10.61.50.6
+ip host c8 10.61.50.8
+ip host p1 10.61.100.101
+ip host p2 10.61.100.102
+ip host sw 10.61.1.4
+ip host ed 10.61.61.1
 
 TASK7: Enter the World of BlueTeam: Protect vs Redteam: Attack, 
 BlueTeam: UTM: unified Threat management:
@@ -151,6 +217,45 @@ Top 5 UTM: 1.FortinetFortigate:
            1.1: Palo Alto:superSuplado
            2. Checkpoint
            3.4 Cisco
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 TASK8: CONGigure YOur first Packet Filter Firewall.
  FORMULA: "  Protocol    hacker   victim  Port "
@@ -190,13 +295,25 @@ IP access-list Extended fwpolicy1
   end
 
 ex.2: Make a Firewall so that we can meet this fwpolicy2:
-cm is a ssh,cucm/sccp,web
+cm is a ssh,https,web
 cm2 is secureWEB, 23, dns
 create a fwpolicy2 Policy to meet his condition.
 
+NO IP access-list Extended fwpolicy2
+IP access-list Extended fwpolicy2
+permit Tcp Any host cm Eq 443
+permit Tcp Any host cm Eq 22
+permit Tcp Any host cm Eq 80
+permit Tcp Any host cm2 Eq 443
+permit Tcp Any host cm2 Eq 23
+permit Tcp Any host cm2 Eq 53
+ Int Fa 0/0
+  ip access-group fwpolicy2 IN
+  end
+
 nmap -v cm       nmap -v cm2
 22               443
-2000             23
+443              23
 80               53
 
 ex.2: Make a Firewall so that we can meet this fwpolicy3:
