@@ -1,6 +1,6 @@
 !@@@CORE SWITCH SA TAAS
 config t
-   hostname COREtaas61
+   hostname COREtaas62
    enable secret pass
    service password-encryption
    no logging console
@@ -15,24 +15,24 @@ config t
       exec-timeout 0 0
    Int Vlan 1
      no shutdown
-	 ip add 10.61.1.2 255.255.255.0
+	 ip add 10.62.1.2 255.255.255.0
 	 description MGMTDATA
    Int Vlan 10
      no shutdown
-	 ip add 10.61.10.2 255.255.255.0
+	 ip add 10.62.10.2 255.255.255.0
 	 description WIRELESS
    Int Vlan 50
      no shutdown
-	 ip add 10.61.50.2 255.255.255.0
+	 ip add 10.62.50.2 255.255.255.0
 	 description IPCCTV
    Int Vlan 100
      no shutdown
-	 ip add 10.61.100.2 255.255.255.0
+	 ip add 10.62.100.2 255.255.255.0
 	 description VOICEVLAN
 
 !@@@LeafSwitchONLY
 config t
-   hostname COREbaba61
+   hostname COREbaba62
    enable secret pass
    service password-encryption
    no logging console
@@ -48,52 +48,52 @@ config t
    Int Gi 0/1
      no shutdown
 	  no switchport
-	  ip add 10.61.61.4 255.255.255.0
+	  ip add 10.62.62.4 255.255.255.0
    Int Vlan 1
      no shutdown
-	 ip add 10.61.1.4 255.255.255.0
+	 ip add 10.62.1.4 255.255.255.0
 	 description MGMTDATA
    Int Vlan 10
      no shutdown
-	 ip add 10.61.10.4 255.255.255.0
+	 ip add 10.62.10.4 255.255.255.0
 	 description WIRELESS
    Int Vlan 50
      no shutdown
-	 ip add 10.61.50.4 255.255.255.0
+	 ip add 10.62.50.4 255.255.255.0
 	 description IPCCTV
    Int Vlan 100
      no shutdown
-	 ip add 10.61.100.4 255.255.255.0
+	 ip add 10.62.100.4 255.255.255.0
 	 description VOICEVLAN
 	 
 !DHCP: DYNAMIC HOST CONFIGURATION PROTOCOL
 !@@@LEAF SWITCH
 config t
-ip dhcp Excluded-add 10.61.1.1 10.61.1.100
-ip dhcp Excluded-add 10.61.10.1 10.61.10.100
-ip dhcp Excluded-add 10.61.50.1 10.61.50.100
-ip dhcp Excluded-add 10.61.100.1 10.61.100.100
+ip dhcp Excluded-add 10.62.1.1 10.62.1.100
+ip dhcp Excluded-add 10.62.10.1 10.62.10.100
+ip dhcp Excluded-add 10.62.50.1 10.62.50.100
+ip dhcp Excluded-add 10.62.100.1 10.62.100.100
 ip dhcp pool MGMTDATA
-   network 10.61.1.0 255.255.255.0
-   default-router 10.61.1.4
+   network 10.62.1.0 255.255.255.0
+   default-router 10.62.1.4
    domain-name MGMTDATA.COM
-   dns-server 10.61.1.10
+   dns-server 10.62.1.10
 ip dhcp pool WIFIDATA
-   network 10.61.10.0 255.255.255.0
-   default-router 10.61.10.4
+   network 10.62.10.0 255.255.255.0
+   default-router 10.62.10.4
    domain-name WIFIDATA.COM
-   dns-server 10.61.1.10
+   dns-server 10.62.1.10
 ip dhcp pool IPCCTV
-   network 10.61.50.0 255.255.255.0
-   default-router 10.61.50.4
+   network 10.62.50.0 255.255.255.0
+   default-router 10.62.50.4
    domain-name IPCCTV.COM
-   dns-server 10.61.1.10
+   dns-server 10.62.1.10
 ip dhcp pool VOICEVLAN
-   network 10.61.100.0 255.255.255.0
-   default-router 10.61.100.4
+   network 10.62.100.0 255.255.255.0
+   default-router 10.62.100.4
    domain-name VOICEVLAN.COM
-   dns-server 10.61.1.10
-   option 150 ip 10.61.100.8   
+   dns-server 10.62.1.10
+   option 150 ip 10.62.100.8   
    END
 
 !!CREATING AND PLACING PORTS INSIDEAVLAN:
@@ -128,16 +128,16 @@ Int Fa 0/7
  end
 
 ip dhcp pool CAMERA6
-host 10.61.50.6 255.255.255.0
+host 10.62.50.6 255.255.255.0
 client-identifier 001a.0706.c2c5
 ip dhcp pool CAMERA8
-host 10.61.50.8 255.255.255.0
+host 10.62.50.8 255.255.255.0
 client-identifier 001a.0706.54fb
 
 !!cisco unified call manager Express command
 !@@@CUCM-M
 config t
-   hostname CUCM-61
+   hostname CUCM-62
    enable secret pass
    service password-encryption
    no logging console
@@ -152,22 +152,22 @@ config t
       exec-timeout 0 0
    Int Fa 0/0
      no shutdown
-	 ip add 10.61.100.8 255.255.255.0 
+	 ip add 10.62.100.8 255.255.255.0 
 	 end
    
 !!!CUCM ANALOG PHONES CONFIG
 configure terminal
 dial-peer voice 1 pots
-   destination-pattern 6100
+   destination-pattern 6200
    port 0/0/0
 dial-peer voice 2 pots
-   destination-pattern 6101
+   destination-pattern 6201
    port 0/0/1
 dial-peer voice 3 pots
-   destination-pattern 6102
+   destination-pattern 6202
    port 0/0/2
 dial-peer voice 4 pots
-   destination-pattern 6103
+   destination-pattern 6203
    port 0/0/3
 end
 
@@ -179,24 +179,24 @@ telephony-service
    no auto-reg-ephone
    max-ephones 5
    max-dn 20
-   ip source-address 10.61.100.8 port 2000
+   ip source-address 10.62.100.8 port 2000
    create cnf-files
 ephone-dn 1
-  number 6111
+  number 6211
 ephone-dn 2
-  number 6122
+  number 6222
 ephone-dn 3
-  number 6133
+  number 6233
 ephone-dn 4
-  number 6144
+  number 6244
 ephone-dn 5
-  number 6155
+  number 6255
 ephone-dn 6
-  number 6166
+  number 6266
 ephone-dn 7
-  number 6177
+  number 6277
 ephone-dn 8
-  number 6188	
+  number 6288	
 Ephone 1
   Mac-address ccd8.c1fb.0953
   type 8945
