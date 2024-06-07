@@ -129,10 +129,10 @@ Int Fa 0/7
 
 ip dhcp pool CAMERA6
 host 10.61.50.6 255.255.255.0
-client-identifier 001a.0706.c2c5 
+client-identifier  001a.0709.54fb
 ip dhcp pool CAMERA8
 host 10.61.50.8 255.255.255.0
-client-identifier 001a.0709.54fb 
+client-identifier 001a.0706.c2c5
 
 !!cisco unified call manager Express command
 !@@@CUCM-M
@@ -198,7 +198,7 @@ ephone-dn 7
 ephone-dn 8
   number 6188	
 Ephone 1
-  Mac-address 64e9.50ca.
+  Mac-address ccd8.c1fb.0953
   type 8945
   button 1:1 2:3 3:2 4:4
   restart
@@ -300,7 +300,7 @@ dial-peer voice 82 Voip
 @@@@@@
 !@@@EDGE ROUTE CONFIG
 config t
-   hostname EDGE62
+   hostname EDGE61
    enable secret pass
    service password-encryption
    no logging console
@@ -315,15 +315,15 @@ config t
       exec-timeout 0 0
    Int Gi 0/0/0
      description INSIDE
-     ip add 10.62.62.1 255.255.255.0
+     ip add 10.61.61.1 255.255.255.0
 	 no shutdown
    Int Gi 0/0/1
      description OUTSIDE
-	 ip add 200.0.0.62 255.255.255.0
+	 ip add 200.0.0.61 255.255.255.0
 	 no shutdown
    Int Loopback 0
      description VIRTUALIP
-	 ip add 62.0.0.1 255.255.255.255
+	 ip add 61.0.0.1 255.255.255.255
  end
 
  !!!static routing for minimum wagers 575php/day
@@ -340,13 +340,13 @@ config t
  ip route 10.42.0.0 255.255.0.0 200.0.0.42
  ip route 10.51.0.0 255.255.0.0 200.0.0.51
  ip route 10.52.0.0 255.255.0.0 200.0.0.52
- ip route 10.61.0.0 255.255.0.0 200.0.0.61
- !ip route 10.62.0.0 255.255.0.0 200.0.0.62
+ !ip route 10.61.0.0 255.255.0.0 200.0.0.61
+ ip route 10.62.0.0 255.255.0.0 200.0.0.62
  ip route 10.71.0.0 255.255.0.0 200.0.0.71
  ip route 10.72.0.0 255.255.0.0 200.0.0.72
  ip route 10.81.0.0 255.255.0.0 200.0.0.81
  ip route 10.82.0.0 255.255.0.0 200.0.0.82
- ip route 10.62.0.0 255.255.0.0 10.62.62.4
+ ip route 10.61.0.0 255.255.0.0 10.61.61.4
  end
  
 *********************************************
@@ -354,7 +354,7 @@ layer 3 switch ROUTING = 300k + pesos
 @SWITCH/COREBABA
 conf t 
 ip routing
-ip route 0.0.0.0 0.0.0.0 10.62.62.1
+ip route 0.0.0.0 0.0.0.0 10.61.61.1
 end
 
 @CUCMDEFAULT ROUTING (0.0.0.0.0.0.0.0)
@@ -365,8 +365,8 @@ end
 
 !How to Static Route windows Server:
 cmd
-route  add   10.0.0.0   mask   255.0.0.0    10.62.1.4
-route  add  200.0.0.0   mask  255.255.255.0   10.62.1.4
+route  add   10.0.0.0   mask   255.0.0.0    10.61.1.4
+route  add  200.0.0.0   mask  255.255.255.0   10.61.1.4
 
 ********************************************
 
