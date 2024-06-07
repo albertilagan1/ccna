@@ -7,7 +7,7 @@ no auto-summary
 network 10.61.100.0 0.0.0.255
 
 @ edge 
-
+conf t
 router eigrp 61
 no auto-summary
 network 10.61.61.0 0.0.0.255
